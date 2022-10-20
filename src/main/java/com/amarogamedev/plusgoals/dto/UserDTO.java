@@ -1,14 +1,17 @@
 package com.amarogamedev.plusgoals.dto;
 
 import com.amarogamedev.plusgoals.domain.User;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.math.BigInteger;
-
+//define o formato do corpo utilizado nas requisições
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDTO {
 
-    private BigInteger id;
+    private String id;
     private String name;
     private String email;
     private String password;
