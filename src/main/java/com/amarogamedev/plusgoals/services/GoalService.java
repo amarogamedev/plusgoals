@@ -75,8 +75,8 @@ public class GoalService {
         goal.setDone(updatedGoal.getDone());
 
         //se estiver definindo esta meta como feita, definir todas as tarefas também
-        if(!goal.getTaskIds().isEmpty() && updatedGoal.getDone()) {
-            markDoneAllChildren(goal);
+        if(!goal.getTaskIds().isEmpty()) {
+            markDoneAllChildren(goal, updatedGoal.getDone());
         }
 
         return goalRepository.save(goal);
@@ -103,9 +103,11 @@ public class GoalService {
     }
 
     //define o estado de todas as tarefas como feito
-    private void markDoneAllChildren(Goal goal) {
+    public void markDoneAllChildren(Goal goal, Boolean state) {
         for (int i = 0; i < goal.getTaskIds().size(); i++) {
-            taskService.findById(goal.getTaskIds().get(i)).setDone(true);
+            Task task = taskService.findById(goal.getTaskIds().get(i));
+            task.setDone(state);
+            taskRepository.save(task);
         }
     }
 }
